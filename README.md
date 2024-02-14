@@ -58,11 +58,11 @@ Telegram 機器人](https://core.telegram.org/bots/api) 與OpenAI 的_official_ 
 複製 `.env.example` 並將其重新命名為 `.env`，然後根據需要編輯所需參數，從而自訂配置：
 
 | 參數說明
-|-----------------------------|------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ----|
-| `OPENAI_API_KEY`            | 您的 OpenAI API 金鑰，可從 [here](https://platform.openai.com/account/api-keys) 取得。                                                                                                                                               | 
-| `TELEGRAM_BOT_TOKEN`        | 您的Telegram 機器人令牌，使用[BotFather](http://t.me/botfather) 取得（請參閱[tutorial](https://core.telegram.org/bots/tutorial#obtain- your-bot-token)                                                                                |
-| `ADMIN_USER_IDS`            | 管理員的 Telegram 使用者 ID。 這些用戶可以存取特殊的管理命令和訊息，並且沒有預算限制。 管理員 ID 無需新增至 `ALLOWED_TELEGRAM_USER_IDS`。 **注意**：預設情況下，沒有管理員 (`-`)                                                              | 
-| `ALLOWED_TELEGRAM_USER_IDS` | 以逗號分隔的允許與機器人互動的 Telegram 使用者 ID 清單（使用 [getidsbot](https://t.me/getidsbot) 尋找您的使用者 ID）。 **注意**：預設情況下，*所有人*都是允許的（`*`）。                                                                     | 
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `OPENAI_API_KEY`            | Your OpenAI API key, you can get it from [here](https://platform.openai.com/account/api-keys)                                                                                                                                 |
+| `TELEGRAM_BOT_TOKEN`        | Your Telegram bot's token, obtained using [BotFather](http://t.me/botfather) (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))                                                                  |
+| `ADMIN_USER_IDS`            | Telegram user IDs of admins. These users have access to special admin commands, information and no budget restrictions. Admin IDs don't have to be added to `ALLOWED_TELEGRAM_USER_IDS`. **Note**: by default, no admin (`-`) |
+| `ALLOWED_TELEGRAM_USER_IDS` | A comma-separated list of Telegram user IDs that are allowed to interact with the bot (use [getidsbot](https://t.me/getidsbot) to find your user ID). **Note**: by default, *everyone* is allowed (`*`)                       |
 
 ### Optional configuration
 The following parameters are optional and can be set in the `.env` file:
