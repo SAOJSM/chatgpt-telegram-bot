@@ -7,8 +7,6 @@
 Telegram 機器人](https://core.telegram.org/bots/api) 與OpenAI 的_official_ [ChatGPT](https://openai.com/blog/chatgpt/)、[DALL-E](https:/ /openai.com/product/dall-e-2) 和[Whisper](https://openai.com/research/whisper) API 集成，以提供答案。 只需極少的配置即可使用。
 
 ### 螢幕截圖
-![demo](https://user-images.githubusercontent.com/11541888/225114786-0d639854-b3e1-4214-b49a-e51ce8c40387.png)
-![demo](https://user-images.githubusercontent.com/11541888/225114786-0d639854-b3e1-4214-b49a-e51ce8c40387.png)
 
 #### 示例
 ![demo](https://user-images.githubusercontent.com/11541888/225114786-0d639854-b3e1-4214-b49a-e51ce8c40387.png)
