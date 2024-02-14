@@ -57,7 +57,7 @@ Telegram 機器人](https://core.telegram.org/bots/api) 與OpenAI 的_official_ 
 ### 配置
 複製 `.env.example` 並將其重新命名為 `.env`，然後根據需要編輯所需參數，從而自訂配置：
 
-| 參數說明
+| Parameter                   | Description                                                                                                                                                                                                                   |
 |-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `OPENAI_API_KEY`            | Your OpenAI API key, you can get it from [here](https://platform.openai.com/account/api-keys)                                                                                                                                 |
 | `TELEGRAM_BOT_TOKEN`        | Your Telegram bot's token, obtained using [BotFather](http://t.me/botfather) (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))                                                                  |
