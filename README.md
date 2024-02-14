@@ -14,55 +14,55 @@ Telegram 機器人](https://core.telegram.org/bots/api) 與OpenAI 的_official_ 
 ### 擴充功能
 ![plugins](https://github.com/n3d1117/chatgpt-telegram-bot/assets/11541888/83d5e0cd-e09a-463d-a292-722f919e929f)
 
-## Features
-- [x] Support markdown in answers
-- [x] Reset conversation with the `/reset` command
-- [x] Typing indicator while generating a response
-- [x] Access can be restricted by specifying a list of allowed users
-- [x] Docker and Proxy support
-- [x] Image generation using DALL·E via the `/image` command
-- [x] Transcribe audio and video messages using Whisper (may require [ffmpeg](https://ffmpeg.org))
-- [x] Automatic conversation summary to avoid excessive token usage
-- [x] Track token usage per user - by [@AlexHTW](https://github.com/AlexHTW)
-- [x] Get personal token usage statistics via the `/stats` command - by [@AlexHTW](https://github.com/AlexHTW)
-- [x] User budgets and guest budgets - by [@AlexHTW](https://github.com/AlexHTW)
-- [x] Stream support
-- [x] GPT-4 support
-  - If you have access to the GPT-4 API, simply change the `OPENAI_MODEL` parameter to `gpt-4`
-- [x] Localized bot language
-  - Available languages :brazil: :cn: :finland: :de: :indonesia: :iran: :it: :malaysia: :netherlands: :poland: :ru: :saudi_arabia: :es: :taiwan: :tr: :ukraine: :gb: :uzbekistan: :vietnam:
-- [x] Improved inline queries support for group and private chats - by [@bugfloyd](https://github.com/bugfloyd)
-  - To use this feature, enable inline queries for your bot in BotFather via the `/setinline` [command](https://core.telegram.org/bots/inline)
-- [x] Support *new models* [announced on June 13, 2023](https://openai.com/blog/function-calling-and-other-api-updates)
-- [x] Support *functions* (plugins) to extend the bot's functionality with 3rd party services
-  - Weather, Spotify, Web search, text-to-speech and more. See [here](#available-plugins) for a list of available plugins
-- [x] Support unofficial OpenAI-compatible APIs - by [@kristaller486](https://github.com/kristaller486)
-- [x] (NEW!) Support GPT-4 Turbo and DALL·E 3 [announced on November 6, 2023](https://openai.com/blog/new-models-and-developer-products-announced-at-devday) - by [@AlexHTW](https://github.com/AlexHTW)
-- [x] (NEW!) Text-to-speech support [announced on November 6, 2023](https://platform.openai.com/docs/guides/text-to-speech) - by [@gilcu3](https://github.com/gilcu3)
-- [x] (NEW!) Vision support [announced on November 6, 2023](https://platform.openai.com/docs/guides/vision) - by [@gilcu3](https://github.com/gilcu3)
+## 功能
+- [x] 在答案中支援標記符
+- [x] 使用`/reset`指令重設對話
+- [x] 產生回覆時的打字指示器
+- 可透過指定允許存取的使用者清單限制存取權限
+- [x] 支援 Docker 和代理
+- 透過 `/image` 指令使用 DALL-E 產生影像
+- [x] 使用 Whisper 轉錄音訊和視訊資訊（可能需要 [ffmpeg](https://ffmpeg.org)
+- [x] 自動會話摘要，避免過度使用令牌
+- [x] 追蹤每個使用者的令牌使用情況 - 由 [@AlexHTW](https://github.com/AlexHTW) 提供
+- [x] 透過"/stats "指令取得個人令牌使用統計資訊--作者：[@AlexHTW](https://github.com/AlexHTW)
+- [x] 使用者預算與訪客預算 - 作者：[@AlexHTW](https://github.com/AlexHTW)
+- [x] 支援流
+- [x] 支持 GPT-4
+   - 如果您可以存取 GPT-4 API，只需將 `OPENAI_MODEL` 參數變更為 `gpt-4
+- [x] 本地化機器人語言
+   - 可用語言:Brazil: :cn: :finland: :de: :indonesia: :iran: :it: :malaysia: :netherlands: :poland: :ru: :saudi_arabia: :es: :taiwan: :tr： : 烏克蘭 : :英國: :烏茲別克: :越南：
+- [x] 改進了群組聊天和私聊的內嵌查詢支援 - 作者：[@bugfloyd](https://github.com/bugfloyd)
+   - 若要使用此功能，請在 BotFather 中透過 `/setinline` [command](https://core.telegram.org/bots/inline) 為您的機器人啟用內聯查詢。
+- [x] 支援*新機型* [2023年6月13日發表](https://openai.com/blog/function-calling-and-other-api-updates)
+- [x] 支援*功能*（外掛程式），透過第三方服務擴充機器人的功能
+   - 天氣、Spotify、網路搜尋、文字轉語音等。 可用插件清單請參閱[此處]（#available-plugins）。
+- [x] 支援與 OpenAI 相容的非官方 API - 作者：[@kristaller486](https://github.com/kristaller486)
+- [x]（新功能！）支援GPT-4 Turbo 和DALL-E 3 [2023年11月6日宣布](https://openai.com/blog/new-models-and-developer-products-announced -at-devday) - 作者：[@AlexHTW](https://github.com/AlexHTW)
+- [x]（新功能！）支援文字轉語音[2023 年11 月6 日宣布](https://platform.openai.com/docs/guides/text-to-speech) - 作者：[@gilcu3] (https://github.com/gilcu3)
+- [x]（新功能！）視覺支援[2023 年11 月6 日宣布](https://platform.openai.com/docs/guides/vision) - 作者：[@gilcu3](https://github .com/gilcu3)
 
-## Additional features - help needed!
-If you'd like to help, check out the [issues](https://github.com/n3d1117/chatgpt-telegram-bot/issues) section and contribute!  
-If you want to help with translations, check out the [Translations Manual](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/219)
+## 附加功能 - 需要協助！
+如果您想提供協助，請查看 [issues](https://github.com/n3d1117/chatgpt-telegram-bot/issues) 部分並貢獻自己的力量！
+如果您想協助翻譯，請查看 [翻譯手冊](https://github.com/n3d1117/chatgpt-telegram-bot/discussions/219)
 
-PRs are always welcome!
+我們隨時歡迎您提交 PR！
 
-## Prerequisites
-- Python 3.9+
-- A [Telegram bot](https://core.telegram.org/bots#6-botfather) and its token (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))
-- An [OpenAI](https://openai.com) account (see [configuration](#configuration) section)
+## 前提條件
+- Python 3.9 以上版本
+- 一個[Telegram 機器人](https://core.telegram.org/bots#6-botfather) 及其令牌（參見[tutorial](https://core.telegram.org/bots/tutorial#obtain-your -bot-token)
+- 一個 [OpenAI](https://openai.com) 帳戶（請參閱 [配置](#configuration) 部分）
 
-## Getting started
+### 入門
 
-### Configuration
-Customize the configuration by copying `.env.example` and renaming it to `.env`, then editing the required parameters as desired:
+### 配置
+複製 `.env.example` 並將其重新命名為 `.env`，然後根據需要編輯所需參數，從而自訂配置：
 
-| Parameter                   | Description                                                                                                                                                                                                                   |
-|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `OPENAI_API_KEY`            | Your OpenAI API key, you can get it from [here](https://platform.openai.com/account/api-keys)                                                                                                                                 |
-| `TELEGRAM_BOT_TOKEN`        | Your Telegram bot's token, obtained using [BotFather](http://t.me/botfather) (see [tutorial](https://core.telegram.org/bots/tutorial#obtain-your-bot-token))                                                                  |
-| `ADMIN_USER_IDS`            | Telegram user IDs of admins. These users have access to special admin commands, information and no budget restrictions. Admin IDs don't have to be added to `ALLOWED_TELEGRAM_USER_IDS`. **Note**: by default, no admin (`-`) |
-| `ALLOWED_TELEGRAM_USER_IDS` | A comma-separated list of Telegram user IDs that are allowed to interact with the bot (use [getidsbot](https://t.me/getidsbot) to find your user ID). **Note**: by default, *everyone* is allowed (`*`)                       |
+| 參數說明
+|-----------------------------|------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ----|
+| `OPENAI_API_KEY`            | 您的 OpenAI API 金鑰，可從 [here](https://platform.openai.com/account/api-keys) 取得。                                                                                                                                               | 
+| `TELEGRAM_BOT_TOKEN`        | 您的Telegram 機器人令牌，使用[BotFather](http://t.me/botfather) 取得（請參閱[tutorial](https://core.telegram.org/bots/tutorial#obtain- your-bot-token)                                                                                |
+| `ADMIN_USER_IDS`            | 管理員的 Telegram 使用者 ID。 這些用戶可以存取特殊的管理命令和訊息，並且沒有預算限制。 管理員 ID 無需新增至 `ALLOWED_TELEGRAM_USER_IDS`。 **注意**：預設情況下，沒有管理員 (`-`)                                                              | 
+| `ALLOWED_TELEGRAM_USER_IDS` | 以逗號分隔的允許與機器人互動的 Telegram 使用者 ID 清單（使用 [getidsbot](https://t.me/getidsbot) 尋找您的使用者 ID）。 **注意**：預設情況下，*所有人*都是允許的（`*`）。                                                                     | 
 
 ### Optional configuration
 The following parameters are optional and can be set in the `.env` file:
