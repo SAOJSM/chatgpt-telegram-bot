@@ -8,7 +8,7 @@ Telegram 機器人](https://core.telegram.org/bots/api) 與OpenAI 的_official_ 
 
 ### 螢幕截圖
 
-#### 示例
+#### 範例
 ![demo](https://user-images.githubusercontent.com/11541888/225114786-0d639854-b3e1-4214-b49a-e51ce8c40387.png)
 
 ### 擴充功能
