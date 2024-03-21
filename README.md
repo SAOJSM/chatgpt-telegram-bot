@@ -4,7 +4,7 @@
 [![許可證](https://img.shields.io/badge/License-GPL%202.0-brightgreen.svg)](LICENSE)
 [![發佈Docker 映像](https://github.com/n3d1117/chatgpt-telegram-bot/actions/workflows/publish.yaml/badge.svg)]
 
-Telegram 機器人](https://core.telegram.org/bots/api) 與OpenAI 的_official_ [ChatGPT](https://openai.com/blog/chatgpt/)、[DALL-E](https:/ /openai.com/product/dall-e-2) 和[Whisper](https://openai.com/research/whisper) API 集成，以提供答案。 只需極少的配置即可使用。
+[Telegram 機器人](https://core.telegram.org/bots/api) 與[OpenAI 的_official ChatGPT](https://openai.com/blog/chatgpt/)、[DALL-E](https://openai.com/product/dall-e-2) 和 [Whisper](https://openai.com/research/whisper) API 集成，以提供答案。 只需極少的配置即可使用。
 
 ### 螢幕截圖
 
