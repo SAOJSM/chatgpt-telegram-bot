@@ -30,7 +30,7 @@
 - [x] 支持 GPT-4
    - 如果您可以存取 GPT-4 API，只需將 `OPENAI_MODEL` 參數變更為 `gpt-4
 - [x] 本地化機器人語言
-   - 可用語言:巴西文: :中文: :芬蘭文: :de: :indonesia: :iran: :it: :malaysia: :netherlands: :poland: :ru: :saudi_arabia: :es: :taiwan: :tr： : 烏克蘭 : :英國: :烏茲別克: :越南：
+   - 可用語言:巴西文: :中文: :芬蘭文: :德文: :印尼文: :iran: :it: :malaysia: :netherlands: :poland: :ru: :saudi_arabia: :es: :taiwan: :tr： : 烏克蘭 : :英國: :烏茲別克: :越南：
 - [x] 改進了群組聊天和私聊的內嵌查詢支援 - 作者：[@bugfloyd](https://github.com/bugfloyd)
    - 若要使用此功能，請在 BotFather 中透過 `/setinline` [command](https://core.telegram.org/bots/inline) 為您的機器人啟用內聯查詢。
 - [x] 支援*新機型* [2023年6月13日發表](https://openai.com/blog/function-calling-and-other-api-updates)
