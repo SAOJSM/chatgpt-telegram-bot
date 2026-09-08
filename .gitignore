@@ -1,7 +1,40 @@
-__pycache__
-/.idea
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.mypy_cache/
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment & secrets — NEVER commit these
 .env
+.env.*
+!.env.example
+*.key
+*.pem
+*.secret
+*.credentials
+
+# IDE
+/.idea
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Project specific
 /usage_logs
-venv
 /.cache

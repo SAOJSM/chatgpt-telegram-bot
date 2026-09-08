@@ -27,7 +27,7 @@ def main():
         exit(1)
 
     # Setup configurations
-    model = os.environ.get('OPENAI_MODEL', 'gpt-3.5-turbo')
+    model = os.environ.get('OPENAI_MODEL', 'gpt-4o-mini')
     functions_available = are_functions_available(model=model)
     max_tokens_default = default_max_tokens(model=model)
     openai_config = {
@@ -41,7 +41,7 @@ def main():
         'max_tokens': int(os.environ.get('MAX_TOKENS', max_tokens_default)),
         'n_choices': int(os.environ.get('N_CHOICES', 1)),
         'temperature': float(os.environ.get('TEMPERATURE', 1.0)),
-        'image_model': os.environ.get('IMAGE_MODEL', 'dall-e-2'),
+        'image_model': os.environ.get('IMAGE_MODEL', 'gpt-image-1'),
         'image_quality': os.environ.get('IMAGE_QUALITY', 'standard'),
         'image_style': os.environ.get('IMAGE_STYLE', 'vivid'),
         'image_size': os.environ.get('IMAGE_SIZE', '512x512'),
@@ -53,7 +53,7 @@ def main():
         'bot_language': os.environ.get('BOT_LANGUAGE', 'en'),
         'show_plugins_used': os.environ.get('SHOW_PLUGINS_USED', 'false').lower() == 'true',
         'whisper_prompt': os.environ.get('WHISPER_PROMPT', ''),
-        'vision_model': os.environ.get('VISION_MODEL', 'gpt-4-vision-preview'),
+        'vision_model': os.environ.get('VISION_MODEL', 'gpt-4o'),
         'enable_vision_follow_up_questions': os.environ.get('ENABLE_VISION_FOLLOW_UP_QUESTIONS', 'true').lower() == 'true',
         'vision_prompt': os.environ.get('VISION_PROMPT', 'What is in this image'),
         'vision_detail': os.environ.get('VISION_DETAIL', 'auto'),

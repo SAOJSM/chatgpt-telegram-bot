@@ -20,14 +20,116 @@ from tenacity import retry, stop_after_attempt, wait_fixed, retry_if_exception_t
 from utils import is_direct_result, encode_image, decode_image
 from plugin_manager import PluginManager
 
-# Models can be found here: https://platform.openai.com/docs/models/overview
+# Models can be found here: https://developers.openai.com/api/docs/models
+# Each model entry: context = context window size, default_max_tokens = default output tokens,
+# tokens_per_message / tokens_per_name = tiktoken counting parameters
+MODEL_CONFIG = {
+    # ==================== GPT-6 系列 ====================
+    "gpt-6-astra": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-5.6 系列 ====================
+    "gpt-5.6-sol": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.6-terra": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.6-luna": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.6-cyber": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-5.5 系列 ====================
+    "gpt-5.5": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.5-pro": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-5.4 系列 ====================
+    "gpt-5.4": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.4-mini": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.4-nano": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.4-pro": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-5.2 系列 ====================
+    "gpt-5.2": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5.2-pro": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-5.1 系列 ====================
+    "gpt-5.1": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-5 系列 ====================
+    "gpt-5": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5-mini": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5-nano": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-5-pro": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-4.1 系列 ====================
+    "gpt-4.1": {"context": 1047576, "default_max_tokens": 32768, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4.1-mini": {"context": 1047576, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4.1-nano": {"context": 1047576, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-4o 系列 ====================
+    "gpt-4o": {"context": 128000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4o-mini": {"context": 128000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4o-search-preview": {"context": 128000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4o-mini-search-preview": {"context": 128000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-4 Turbo 系列 ====================
+    "gpt-4-turbo": {"context": 128000, "default_max_tokens": 4096, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-turbo-preview": {"context": 128000, "default_max_tokens": 4096, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-4 系列 (Legacy) ====================
+    "gpt-4": {"context": 8192, "default_max_tokens": 2400, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-0314": {"context": 8192, "default_max_tokens": 2400, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-0613": {"context": 8192, "default_max_tokens": 2400, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-32k": {"context": 32768, "default_max_tokens": 9600, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-32k-0314": {"context": 32768, "default_max_tokens": 9600, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-32k-0613": {"context": 32768, "default_max_tokens": 9600, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-vision-preview": {"context": 128000, "default_max_tokens": 4096, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4-1106-preview": {"context": 128000, "default_max_tokens": 4096, "tokens_per_message": 3, "tokens_per_name": 1},
+    "gpt-4.5-preview": {"context": 128000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== GPT-3.5 系列 (Legacy) ====================
+    "gpt-3.5-turbo": {"context": 16384, "default_max_tokens": 1200, "tokens_per_message": 4, "tokens_per_name": -1},
+    "gpt-3.5-turbo-0301": {"context": 4096, "default_max_tokens": 1200, "tokens_per_message": 4, "tokens_per_name": -1},
+    "gpt-3.5-turbo-0613": {"context": 4096, "default_max_tokens": 1200, "tokens_per_message": 4, "tokens_per_name": -1},
+    "gpt-3.5-turbo-16k": {"context": 16384, "default_max_tokens": 4800, "tokens_per_message": 4, "tokens_per_name": -1},
+    "gpt-3.5-turbo-16k-0613": {"context": 16384, "default_max_tokens": 4800, "tokens_per_message": 4, "tokens_per_name": -1},
+    "gpt-3.5-turbo-1106": {"context": 16384, "default_max_tokens": 4096, "tokens_per_message": 4, "tokens_per_name": -1},
+
+    # ==================== o 系列推理模型 ====================
+    "o1": {"context": 200000, "default_max_tokens": 32768, "tokens_per_message": 3, "tokens_per_name": 1},
+    "o1-mini": {"context": 128000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "o1-preview": {"context": 128000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "o1-pro": {"context": 200000, "default_max_tokens": 32768, "tokens_per_message": 3, "tokens_per_name": 1},
+    "o3": {"context": 200000, "default_max_tokens": 32768, "tokens_per_message": 3, "tokens_per_name": 1},
+    "o3-mini": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+    "o3-pro": {"context": 200000, "default_max_tokens": 32768, "tokens_per_message": 3, "tokens_per_name": 1},
+    "o4-mini": {"context": 200000, "default_max_tokens": 16384, "tokens_per_message": 3, "tokens_per_name": 1},
+
+    # ==================== Base 模型 (Legacy) ====================
+    "babbage-002": {"context": 16384, "default_max_tokens": 1200, "tokens_per_message": 4, "tokens_per_name": -1},
+    "davinci-002": {"context": 16384, "default_max_tokens": 1200, "tokens_per_message": 4, "tokens_per_name": -1},
+}
+
+# Backward-compatible tuple of all supported chat model IDs
+GPT_ALL_MODELS = tuple(MODEL_CONFIG.keys())
+
+# Legacy model group constants (kept for backward compatibility)
 GPT_3_MODELS = ("gpt-3.5-turbo", "gpt-3.5-turbo-0301", "gpt-3.5-turbo-0613")
 GPT_3_16K_MODELS = ("gpt-3.5-turbo-16k", "gpt-3.5-turbo-16k-0613", "gpt-3.5-turbo-1106")
 GPT_4_MODELS = ("gpt-4", "gpt-4-0314", "gpt-4-0613")
 GPT_4_32K_MODELS = ("gpt-4-32k", "gpt-4-32k-0314", "gpt-4-32k-0613")
 GPT_4_VISION_MODELS = ("gpt-4-vision-preview",)
 GPT_4_128K_MODELS = ("gpt-4-1106-preview",)
-GPT_ALL_MODELS = GPT_3_MODELS + GPT_3_16K_MODELS + GPT_4_MODELS + GPT_4_32K_MODELS + GPT_4_VISION_MODELS + GPT_4_128K_MODELS
+
+# Models that support vision natively (GPT-4o and newer all support vision)
+VISION_CAPABLE_MODELS = (
+    "gpt-4-vision-preview", "gpt-4-turbo", "gpt-4-turbo-preview",
+    "gpt-4o", "gpt-4o-mini", "gpt-4o-search-preview", "gpt-4o-mini-search-preview",
+    "gpt-4.1", "gpt-4.1-mini", "gpt-4.1-nano", "gpt-4.5-preview",
+    "gpt-5", "gpt-5-mini", "gpt-5-nano", "gpt-5-pro",
+    "gpt-5.1",
+    "gpt-5.2", "gpt-5.2-pro",
+    "gpt-5.4", "gpt-5.4-mini", "gpt-5.4-nano", "gpt-5.4-pro",
+    "gpt-5.5", "gpt-5.5-pro",
+    "gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna", "gpt-5.6-cyber",
+    "gpt-6-astra",
+    "o1", "o1-mini", "o1-pro", "o3", "o3-mini", "o3-pro", "o4-mini",
+)
 
 
 def default_max_tokens(model: str) -> int:
@@ -36,34 +138,25 @@ def default_max_tokens(model: str) -> int:
     :param model: The model name
     :return: The default number of max tokens
     """
-    base = 1200
-    if model in GPT_3_MODELS:
-        return base
-    elif model in GPT_4_MODELS:
-        return base * 2
-    elif model in GPT_3_16K_MODELS:    
-        if model == "gpt-3.5-turbo-1106":
-            return 4096
-        return base * 4
-    elif model in GPT_4_32K_MODELS:
-        return base * 8
-    elif model in GPT_4_VISION_MODELS:
-        return 4096
-    elif model in GPT_4_128K_MODELS:
-        return 4096
+    if model in MODEL_CONFIG:
+        return MODEL_CONFIG[model]["default_max_tokens"]
+    # Sensible default for unknown models
+    return 4096
 
 
 def are_functions_available(model: str) -> bool:
     """
-    Whether the given model supports functions
+    Whether the given model supports functions (tools).
+    All modern models support function calling. Only legacy deprecated models do not.
     """
-    # Deprecated models
-    if model in ("gpt-3.5-turbo-0301", "gpt-4-0314", "gpt-4-32k-0314"):
-        return False
-    # Stable models will be updated to support functions on June 27, 2023
-    if model in ("gpt-3.5-turbo", "gpt-3.5-turbo-1106", "gpt-4", "gpt-4-32k","gpt-4-1106-preview"):
-        return datetime.date.today() > datetime.date(2023, 6, 27)
-    if model == 'gpt-4-vision-preview':
+    # Models known NOT to support function calling
+    no_functions_models = (
+        "gpt-3.5-turbo-0301", "gpt-4-0314", "gpt-4-32k-0314",
+        "gpt-4-vision-preview",
+        "babbage-002", "davinci-002",
+        "o1-preview",  # o1-preview does not support tools
+    )
+    if model in no_functions_models:
         return False
     return True
 
@@ -617,22 +710,12 @@ class OpenAIHelper:
         return response.choices[0].message.content
 
     def __max_model_tokens(self):
-        base = 4096
-        if self.config['model'] in GPT_3_MODELS:
-            return base
-        if self.config['model'] in GPT_3_16K_MODELS:
-            return base * 4
-        if self.config['model'] in GPT_4_MODELS:
-            return base * 2
-        if self.config['model'] in GPT_4_32K_MODELS:
-            return base * 8
-        if self.config['model'] in GPT_4_VISION_MODELS:
-            return base * 31
-        if self.config['model'] in GPT_4_128K_MODELS:
-            return base * 31
-        raise NotImplementedError(
-            f"Max tokens for model {self.config['model']} is not implemented yet."
-        )
+        model = self.config['model']
+        if model in MODEL_CONFIG:
+            return MODEL_CONFIG[model]["context"]
+        # Sensible default for unknown models
+        logging.warning(f"Unknown model '{model}' for max tokens, using default 128000.")
+        return 128000
 
     # https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
     def __count_tokens(self, messages) -> int:
@@ -645,16 +728,15 @@ class OpenAIHelper:
         try:
             encoding = tiktoken.encoding_for_model(model)
         except KeyError:
-            encoding = tiktoken.get_encoding("gpt-3.5-turbo")
+            encoding = tiktoken.get_encoding("cl100k_base")
 
-        if model in GPT_3_MODELS + GPT_3_16K_MODELS:
-            tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
-            tokens_per_name = -1  # if there's a name, the role is omitted
-        elif model in GPT_4_MODELS + GPT_4_32K_MODELS + GPT_4_VISION_MODELS + GPT_4_128K_MODELS:
+        if model in MODEL_CONFIG:
+            tokens_per_message = MODEL_CONFIG[model]["tokens_per_message"]
+            tokens_per_name = MODEL_CONFIG[model]["tokens_per_name"]
+        else:
+            # Default for modern models
             tokens_per_message = 3
             tokens_per_name = 1
-        else:
-            raise NotImplementedError(f"""num_tokens_from_messages() is not implemented for model {model}.""")
         num_tokens = 0
         for message in messages:
             num_tokens += tokens_per_message
@@ -686,9 +768,6 @@ class OpenAIHelper:
         """
         image_file = io.BytesIO(image_bytes)
         image = Image.open(image_file)
-        model = self.config['vision_model']
-        if model not in GPT_4_VISION_MODELS:
-            raise NotImplementedError(f"""count_tokens_vision() is not implemented for model {model}.""")
         
         w, h = image.size
         if w > h: w, h = h, w
