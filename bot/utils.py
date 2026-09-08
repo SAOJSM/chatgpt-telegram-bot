@@ -351,12 +351,14 @@ async def handle_direct_result(config, update: Update, response: any):
         if format == 'url':
             await update.effective_message.reply_photo(**common_args, photo=value)
         elif format == 'path':
-            await update.effective_message.reply_photo(**common_args, photo=open(value, 'rb'))
+            with open(value, 'rb') as f:
+                await update.effective_message.reply_photo(**common_args, photo=f)
     elif kind == 'gif' or kind == 'file':
         if format == 'url':
             await update.effective_message.reply_document(**common_args, document=value)
-        if format == 'path':
-            await update.effective_message.reply_document(**common_args, document=open(value, 'rb'))
+        elif format == 'path':
+            with open(value, 'rb') as f:
+                await update.effective_message.reply_document(**common_args, document=f)
     elif kind == 'dice':
         await update.effective_message.reply_dice(**common_args, emoji=value)
 

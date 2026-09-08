@@ -11,6 +11,7 @@ import requests
 import json
 import httpx
 import io
+import base64
 from datetime import date
 from calendar import monthrange
 from PIL import Image
@@ -197,8 +198,13 @@ class OpenAIHelper:
         :param config: A dictionary containing the GPT configuration
         :param plugin_manager: The plugin manager
         """
-        http_client = httpx.AsyncClient(proxies=config['proxy']) if 'proxy' in config else None
-        self.client = openai.AsyncOpenAI(api_key=config['api_key'], http_client=http_client)
+        proxy_val = config.get('proxy')
+        http_client = httpx.AsyncClient(proxy=proxy_val) if proxy_val else None
+        self.client = openai.AsyncOpenAI(
+            api_key=config['api_key'],
+            base_url=config.get('base_url'),
+            http_client=http_client
+        )
         self.config = config
         self.plugin_manager = plugin_manager
         self.conversations: dict[int: list] = {}  # {chat_id: history}
@@ -423,14 +429,17 @@ class OpenAIHelper:
         """
         bot_language = self.config['bot_language']
         try:
-            response = await self.client.images.generate(
-                prompt=prompt,
-                n=1,
-                model=self.config['image_model'],
-                quality=self.config['image_quality'],
-                style=self.config['image_style'],
-                size=self.config['image_size']
-            )
+            image_args = {
+                'prompt': prompt,
+                'n': 1,
+                'model': self.config['image_model'],
+                'size': self.config['image_size']
+            }
+            if 'dall-e-3' in self.config['image_model']:
+                image_args['quality'] = self.config['image_quality']
+                image_args['style'] = self.config['image_style']
+
+            response = await self.client.images.generate(**image_args)
 
             if len(response.data) == 0:
                 logging.error(f'No response from GPT: {str(response)}')
@@ -439,6 +448,12 @@ class OpenAIHelper:
                     f"⚠️\n{localized_text('try_again', bot_language)}."
                 )
 
+            image_data = response.data[0]
+            if hasattr(image_data, 'url') and image_data.url:
+                return image_data.url, self.config['image_size']
+            elif hasattr(image_data, 'b64_json') and image_data.b64_json:
+                image_bytes = io.BytesIO(base64.b64decode(image_data.b64_json))
+                return image_bytes, self.config['image_size']
             return response.data[0].url, self.config['image_size']
         except Exception as e:
             raise Exception(f"⚠️ _{localized_text('error', bot_language)}._ ⚠️\n{str(e)}") from e
